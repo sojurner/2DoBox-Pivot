@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>ideaBox</title>
+    <title>2DoBox</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700">
 </head>
+
 <body>
     <section class="container-box">
         <article class="top-box">
-            <h1 class="idea">idea<span class="header-text">box</span></h1>
-            <form>
-                <input id="title-input" class="form-boxes" type="text" placeholder="Title" aria-label="title for the idea you want to save">
-                <input id="body-input" class="form-boxes" type="text" placeholder="Body" aria-label="body content for the idea you want to save">
+            <h1 class="idea">2Do<span class='header-text'>box</span></h1>
+            <form class="user-input">
+                <input class="title-input" type="text" placeholder="Title" aria-label="title for the idea you want to save">
+                <input class="body-input" type="text" placeholder="Body" aria-label="body content for the idea you want to save">
                 <button class="save-btn" type="submit">save</button>
+                <article class="bottom-half">
+                    <input class="search-ideas" type="text" placeholder="Search">
+                </article>
             </form>
+            <!-- PLACEHOLDER DUMMY CONTENT -->
+            <li class="card-container">
+                <section class="card-content">
+                <h2 class="card-title">Example Idea</h2>
+                <button class="btn delete-btn" alt="the button for upvoting an idea"></button>
+                <p class="card-body">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas tempore suscipit vero magnam sed labore laboriosam
+                    voluptatum iure unde omnis!</p>
+                <button class="btn upvote-btn" alt="the button for upvoting an idea"></button>
+                <button class="btn downvote-btn" alt="the button for upvoting an idea"></button>
+                <p class="todo-rating">Importance: CRITICAL MASS</p>
+                </section>
+            </li>
+            <!-- PLACEHOLDER DUMMY CONTENT -->
         </article>
-        <article class="bottom-box"> </article>
-        <input id="search-ideas" type="text" placeholder="Search">
     </section>
     <script src="./jquery/jquery-3.2.1.js"></script>
     <script src="./index.js"></script>
