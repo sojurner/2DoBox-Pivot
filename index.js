@@ -3,7 +3,8 @@ var body = $('.body-input');
 var ideaSection = $('.card-container');
 var saveButton = $('.save-btn');
 var numCards = 0;
-var idByDate = Date.now()
+var idByDate = Date.now();
+var markedAsRead = $('.checked-btn');
 
 function IdeaCard(title, body, id, quality) {
     this.title = title;
@@ -34,6 +35,12 @@ $('.save-btn').on('click', function(event) {
     var newCard = new IdeaCard(title.val(), body.val(), idByDate, null);
     localStorage.setItem(idByDate, JSON.stringify(newCard)) ; 
     generateCard(newCard); 
+});
+
+$('.container-box').on('click', '.checked-btn', function(){
+    $(this)
+    .parent()
+    .toggleClass("marked-as-read");
 });
 
 $('.user-input').on('input', (title, body), function() {
