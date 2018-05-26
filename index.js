@@ -21,7 +21,7 @@ function generateCard(idea) {
         "${idea.body}"</p>
         <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
         <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
-        <p class="todo-rating">Importance: <span class="qualityVariable">${idea.quality}</span></p>
+        <p class="todo-rating">Importance: <span class="qualityVariable">${idea.quality}</span></p><button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
         <hr>
         </section>
         </li>`;
