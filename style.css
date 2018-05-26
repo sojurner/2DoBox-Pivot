@@ -34,6 +34,10 @@ h1{
     color: #00a79d;
 }
 
+.form-boxes {
+    margin: .8rem auto;
+}
+
 #title-input {
     align-items: center;
     display: flex;
@@ -63,6 +67,7 @@ h1{
     font-size: 120%;
     height: 30px;
     width: 45.5%;
+    margin: .2rem auto;
 }
 
 .save-btn:hover {
@@ -85,7 +90,7 @@ input {
 }
 
 .card {
-    background-color: #ffffff;
+    background-color: #fff;
     height: auto;
     margin: auto;
     width: 45%;
