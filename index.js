@@ -24,6 +24,7 @@ function generateCard()
 
 $.(window)each(localStorage, function(key) {
     var cardData = JSON.parse(this);
+JavascriptEdit
      (cardData.title, cardData.body, cardData.quality
     $(".bottom-box").prepend(newCard());
 });
@@ -33,6 +34,7 @@ var localStoreCard = function() {
     localStorage.setItem('card' + numCards  , cardString);
 }
 
+// this works
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
     if ($('#title-input').val() === "" || $('#body-input').val() === "") {
@@ -41,10 +43,9 @@ $('.save-btn').on('click', function(event) {
         $(this).prop(disabled, false);
     }
     var CreateCard = new IdeaCard(title.val(), body.val(), qualityVariable); 
-    localStoreCard();
-    $('form')[0].reset();
 });
 
+// refactor. no nested if statements
 $(".bottom-box").on('click', function(event){
     var qualityArray = ['swill', 'plausible', 'genius']
     var currentQuality = $(this).closest('.card-container').find(".qualityVariable")
