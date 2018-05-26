@@ -13,18 +13,18 @@ function IdeaCard(title, body, id, quality) {
 
 function generateCard(idea) {
     var createCard =
-        `<div id="${idea.id}" class="card-container">
-        <h2 class="title-of-card"> ${idea.title}</h2>
-        <button class="delete-button"></button>
-        <p class="body-of-card">
+        `<li id="${idea.id}" class="card-container">
+        <section class="card-content">
+        <h2 class="card-title"> ${idea.title}</h2>
+        <button class="btn delete-btn" aria-label="Button deleting a to-do"></button>
+        <p class="card-body">
         "${idea.body}"</p>
-        <button class="upvote-btn"></button>
-        <button class="downvote"></button> 
-        <p class="quality">quality:<span class="qualityVariable">${idea.quality}</span></p>
-        <hr>
-        </div>`;
+        <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
+        <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
+        <p class="todo-rating">quality:<span class="qualityVariable">${idea.quality}</span></p>
+        </section>
+        </li>`;
     ideaSection.after(createCard);
-    console.log('Hello')
 }
 
 // $.(window)each(localStorage, function(key) {
