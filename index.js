@@ -28,19 +28,6 @@ function generateCard(idea) {
     ideaSection.prepend(createCard);
 }
 
-// $.(window)each(localStorage, function(key) {
-//     var cardData = JSON.parse(this);
-// JavascriptEdit
-//      (cardData.title, cardData.body, cardData.quality
-//     $(".bottom-box").prepend(newCard());
-// });
-
-// var localStoreCard = function() {
-//     var cardString = JSON.stringify(cardObject());
-//     localStorage.setItem('')
-// }
-
-
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
     var id = Date.now()
@@ -54,7 +41,25 @@ $('.user-input').on('input', (title, body), function() {
     } else {
         saveButton.prop('disabled', false);
     }
-})
+});
+
+$(window).on('load', function () {
+    for(var i = 0; i<localStorage.length; i++) {
+        var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i))
+        var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
+        generateCard(parsedLocalStorageData);
+    }
+});
+//     var cardData = JSON.parse(this);
+// JavascriptEdit
+//     $(".bottom-box").prepend(newCard());
+// });
+
+// var localStoreCard = function() {
+//     var cardString = JSON.stringify(cardObject());
+//     localStorage.setItem('')
+// }
+
 
 // // refactor. no nested if statements
 // $(".bottom-box").on('click', function(event){
