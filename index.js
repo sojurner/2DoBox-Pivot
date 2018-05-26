@@ -36,6 +36,12 @@ $('.save-btn').on('click', function(event) {
     generateCard(newCard); 
 });
 
+$('.container-box').on('click', '.checked-btn', function(){
+    $(this)
+    .parent()
+    .toggleClass("marked-as-read");
+});
+
 $('.user-input').on('input', (title, body), function() {
       if (title.val() === "" || body.val() === "") {
         saveButton.prop('disabled', true);
