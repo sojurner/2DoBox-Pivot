@@ -8,7 +8,7 @@ function IdeaCard(title, body, id, quality) {
     this.title = title;
     this.body = body;
     this.id = Date.now();
-    this.quality = quality || "swill"
+    this.quality = quality || "Normal"
 }
 
 function generateCard(idea) {
@@ -21,10 +21,11 @@ function generateCard(idea) {
         "${idea.body}"</p>
         <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
         <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
-        <p class="todo-rating">quality:<span class="qualityVariable">${idea.quality}</span></p>
+        <p class="todo-rating">Importance: <span class="qualityVariable">${idea.quality}</span></p>
+        <hr>
         </section>
         </li>`;
-    ideaSection.after(createCard);
+    ideaSection.prepend(createCard);
 }
 
 // $.(window)each(localStorage, function(key) {

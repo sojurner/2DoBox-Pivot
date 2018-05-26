@@ -75,12 +75,11 @@ input,
 /*------------------IDEA CARD------------------*/
 
 .card-container {
-  border-bottom: 1px solid #d1d2d3;
   display: flex;
   flex-direction: column;
   list-style: none;
   margin: auto;
-  max-width: 620px;
+  width: 620px;
   text-align: left;
 }
 
@@ -105,12 +104,12 @@ input,
 /*------------------IDEA BUTTONS------------------*/
 
 .btn {
+  background-color: transparent;
   background-size: cover;
-  cursor: pointer;
   border: 0;
+  cursor: pointer;
   height: 1.5rem;
   width: 1.5rem;
-  background-color: transparent;
 }
 
 .upvote-btn {
@@ -134,10 +133,10 @@ input,
 
 .delete-btn {
   background-image: url(./images/delete.svg);
-  margin-right: 0.5rem;
   float: right;
-  top: 20px;
+  margin-right: 0.5rem;
   position: relative;
+  top: 20px;
 }
 
 .delete-btn:hover {
@@ -146,7 +145,7 @@ input,
 
 .todo-rating {
   color: #939598;
-  text-align: center;
+  margin-left: 70px;
 }
 
 /*------------------MEDIA QUERIES------------------*/
@@ -157,7 +156,7 @@ input,
   }
   form,
   .card-container {
-    width: 80%;
+    width: 90%;
   }
 
   .body-input {
