@@ -48,6 +48,7 @@ input,
 .save-btn {
   border: 0.06em solid #d1d2d3;
   box-sizing: border-box;
+  color: #c3c4c6;;
   font-size: 1.7rem;
   margin: 0.5rem;
   padding: 2px 5px;
@@ -72,7 +73,10 @@ input,
 .search-ideas {
   margin-top: 3rem;
 }
+
 /*------------------IDEA CARD------------------*/
+
+
 
 .card-container {
   display: flex;
@@ -81,11 +85,6 @@ input,
   margin: auto;
   width: 620px;
   text-align: left;
-}
-
-.card-content {
-  align-items: center;
-  display: inline;
 }
 
 .card-title {
@@ -120,6 +119,18 @@ input,
 
 .upvote-btn:hover {
   background-image: url(./images/upvote-hover.svg);
+}
+
+.checked-btn{
+  background-image: url(./images/checked.png);
+  bottom: 40px;
+  float: right;
+  margin-right: 0.5rem;
+  position: relative;
+}
+
+.checked-btn:hover{
+  background-image: url(./images/checked-hover.png);
 }
 
 .downvote-btn {
