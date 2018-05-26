@@ -1,19 +1,24 @@
 var title = $('#title-input').val();
 var body = $('#body-input').val();
 var numCards = 0;
-var qualityVariable = "swill";
 
-var newCard = function(id , title , body , quality) {
-    return '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
-            + title +  '</h2>'
-            + '<button class="delete-button"></button>'
-            +'<p class="body-of-card">'
-            + body + '</p>'
-            + '<button class="upvote"></button>' 
-            + '<button class="downvote"></button>' 
-            + '<p class="quality">' + 'quality:' + '<span class="qualityVariable">' + quality + '</span>' + '</p>'
-            + '<hr>' 
-            + '</div>';
+function IdeaCard(id, title, body, quality);
+    this.id = id;
+    this.title = title;
+    this.body = body;
+    this.quality = quality || "swill"
+
+var newCard = function(idea) {
+    `<div id="${idea.id}" class="card-container"><h2 class="title-of-card">  
+    title</h2>
+    <button class="delete-button"></button>
+    <p class="body-of-card">
+    "${idea.body}"</p>
+    <button class="upvote"></button>
+    <button class="downvote"></button> 
+    <p class="quality">quality:<span class="qualityVariable">quality</span> </p>
+    <hr>
+    </div>`;
 };
 
 function cardObject() {
@@ -27,7 +32,7 @@ function cardObject() {
 $.each(localStorage, function(key) {
     var cardData = JSON.parse(this);
     numCards++;
-    $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
+    $(".bottom-box").prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
 });
 
 var localStoreCard = function() {
@@ -38,22 +43,22 @@ var localStoreCard = function() {
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
     if ($('#title-input').val() === "" || $('#body-input').val() === "") {
-       return false;
-    };  
-
-    numCards++;
-    $( ".bottom-box" ).prepend(newCard('card' + numCards, $('#title-input').val(), $('#body-input').val(), qualityVariable)); 
+        $(this).prop(disabled, true);
+    } else {
+        $(this).prop(disabled, false);
+    }
+    var CreateCard = new IdeaCard(title.val(), body.val(), qualityVariable); 
     localStoreCard();
     $('form')[0].reset();
 });
 
 $(".bottom-box").on('click', function(event){
-    var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
+    var currentQuality = $(this.parents('p.quality').children()[0]).text();
     var qualityVariable;
 
-    if (event.target.className === "upvote" || event.target.className === "downvote"){
+    if ($(this).className === "upvote" || $(this).className === "downvote"){
 
-        if (event.target.className === "upvote" && currentQuality === "plausible"){
+        if ($(this).className === "upvote" && currentQuality === "plausible"){
             qualityVariable = "genius";
             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
                
@@ -76,26 +81,22 @@ $(".bottom-box").on('click', function(event){
             qualityVariable = "genius";
         }
 
-    var cardHTML = $(event.target).closest('.card-container');
-    var cardHTMLId = cardHTML[0].id;
-    var cardObjectInJSON = localStorage.getItem(cardHTMLId);
+    var cardHTML = $(this).closest('.card-container').attr('id');
+    var cardObjectInJSON = localStorage.getItem(cardHTML);
     var cardObjectInJS = JSON.parse(cardObjectInJSON);
-
-    cardObjectInJS.quality = qualityVariable;
-
+    var changeQuality = qualityVariable.text;
+    cardObjectInJS.quality = changeQuality;
     var newCardJSON = JSON.stringify(cardObjectInJS);
-    localStorage.setItem(cardHTMLId, newCardJSON);
+    localStorage.setItem(cardHTML, newCardJSON);
     }
-   
-    else if (event.target.className === "delete-button") {
-        var cardHTML = $(event.target).closest('.card-container').remove();
-        var cardHTMLId = cardHTML[0].id;
-        localStorage.removeItem(cardHTMLId);
+
+    else if ($(this).className === "delete-button") {
+        var cardHTML = $(this).closest('.card-container');
+        cardHTML.remove();
+        localStorage.removeItem(cardHTML.attr(id));
     }
 });
       
-
-
 
 
 
