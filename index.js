@@ -3,6 +3,7 @@ var body = $('#body-input').val();
 var numCards = 0;
 var qualityVariable = "swill";
 
+// replace with template literal 💩
 var newCard = function(id , title , body , quality) {
     return '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
             + title +  '</h2>'
@@ -26,7 +27,8 @@ function cardObject() {
 
 $.each(localStorage, function(key) {
     var cardData = JSON.parse(this);
-    numCards++;
+    // what is this for
+    numCards++; 
     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
 });
 
@@ -35,18 +37,20 @@ var localStoreCard = function() {
     localStorage.setItem('card' + numCards  , cardString);
 }
 
+// this works
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
     if ($('#title-input').val() === "" || $('#body-input').val() === "") {
        return false;
     };  
-
+// this doesnt / is useless
     numCards++;
     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('#title-input').val(), $('#body-input').val(), qualityVariable)); 
     localStoreCard();
     $('form')[0].reset();
 });
 
+// refactor. no nested if statements
 $(".bottom-box").on('click', function(event){
     var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
     var qualityVariable;

@@ -1,31 +1,26 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>ideaBox</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700">
 </head>
-
 <body>
-    <section class="container box">
+    <section class="container-box">
         <article class="top-box">
+            <h1 class="idea">idea<span class="header-text">box</span></h1>
             <form>
-                <h1 class="idea">idea</h1>
-                <h1 class="box">Box</h1>
-                <input id="title-input" type="text" placeholder="Title"><br />
-                <input id="body-input" type="text" placeholder="Body"><br />  
-                <button class="save-btn">save</button><br />
+                <input id="title-input" class="form-boxes" type="text" placeholder="Title" aria-label="title for the idea you want to save">
+                <input id="body-input" class="form-boxes" type="text" placeholder="Body" aria-label="body content for the idea you want to save">
+                <button class="save-btn" type="submit">save</button>
             </form>
         </article>
-        
-        <input id="search-input" type="text" placeholder="Search">
-
         <article class="bottom-box"> </article>
-
+        <input id="search-ideas" type="text" placeholder="Search">
     </section>
-
     <script src="./jquery/jquery-3.2.1.js"></script>
     <script src="./index.js"></script>
 </body>
+</html>
