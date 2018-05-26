@@ -1,9 +1,10 @@
 var title = $('.title-input');
 var body = $('.body-input');
 var ideaSection = $('.card-container');
+var saveButton = $('.save-btn');
 var numCards = 0;
 
-function IdeaCard(id, title, body, quality) {
+function IdeaCard(title, body, id, quality) {
     this.title = title;
     this.body = body;
     this.id = Date.now();
@@ -17,7 +18,7 @@ function generateCard(idea) {
         <button class="delete-button"></button>
         <p class="body-of-card">
         "${idea.body}"</p>
-        <button class="upvote"></button>
+        <button class="upvote-btn"></button>
         <button class="downvote"></button> 
         <p class="quality">quality:<span class="qualityVariable">${idea.quality}</span></p>
         <hr>
@@ -41,16 +42,18 @@ function generateCard(idea) {
 
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
-    // console.log("save")
-    // if ($('#title-input').val() === "" || $('#body-input').val() === "") {
-    //     $(this).prop('disabled', true);
-    // } else {
-    //     $(this).prop('disabled', false);
-    // }
     var id = Date.now()
     var newCard = new IdeaCard(title.val(), body.val(), id, null);
     generateCard(newCard); 
 });
+
+$('.user-input').on('input', (title, body), function() {
+      if (title.val() === "" || body.val() === "") {
+        saveButton.prop('disabled', true);
+    } else {
+        saveButton.prop('disabled', false);
+    }
+})
 
 // // refactor. no nested if statements
 // $(".bottom-box").on('click', function(event){
