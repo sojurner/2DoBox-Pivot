@@ -16,7 +16,7 @@ function generateCard(idea) {
         `<li id="${idea.id}" class="card-container">
         <section class="card-content">
         <h2 class="card-title"> ${idea.title}</h2>
-        <button class="btn delete-btn" aria-label="Button deleting a to-do"></button>
+        <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
         <p class="card-body">
         "${idea.body}"</p>
         <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
