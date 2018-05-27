@@ -1,9 +1,3 @@
-var title = $('.title-input');
-var body = $('.body-input');
-var ideaSection = $('.card-container');
-var saveButton = $('.save-btn');
-var numCards = 0;
-
 function IdeaCard(title, body, id, quality) {
     this.title = title;
     this.body = body;
@@ -26,6 +20,7 @@ function generateCard(idea) {
         </section>
         </li>`;
     ideaSection.prepend(createCard);
+    $(.user-Input).reset();
 }
 
 $('.save-btn').on('click', function(event) {
@@ -36,9 +31,21 @@ $('.save-btn').on('click', function(event) {
     generateCard(newCard); 
 });
 
-$('.container-box').on('click', '.checked-btn', function(){
-    $(this).parent().toggleClass('marked-as-read');
-});
+// Event Listeners
+$('.container-box').on('click', '.delete-btn', removeCard);
+$('.container-box').on('click', '.checked-btn', completedTask);
+
+function removeCard() {
+  if ($(this).hasClass('delete-btn')) {
+    $(this).parents('.card-content').remove();
+  }
+  localStorage.removeItem($(this).parents('.card-container').attr('id'));
+}
+
+function completedTask(){
+  var markedAsRead = $('.checked-btn');  
+  $(this).parent().toggleClass("marked-as-read")
+};
 
 $('.user-input').on('input', (title, body), function() {
       if (title.val() === "" || body.val() === "") {
@@ -54,7 +61,7 @@ $(window).on('load', function () {
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
         generateCard(parsedLocalStorageData);
     }
-})
+});
 
 $(window).on('load', function () {
     if ($('.card-container').hasClass('.card-content')) {
@@ -88,10 +95,7 @@ $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
 //     var cardString = JSON.stringify(cardObject());
 //     localStorage.setItem('')
 // }
-
-
-
-        
+     
 //     var cardHTML = $(this).closest('.card-container').attr('id');
 //     var cardObjectInJSON = localStorage.getItem(cardHTML);
 //     var cardObjectInJS = JSON.parse(cardObjectInJSON);
@@ -101,11 +105,7 @@ $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
 //     localStorage.setItem(cardHTML, newCardJSON);
 //     }
 
-//     else if ($(this).className === "delete-button") {
-//         var cardHTML = $(this).closest('.card-container');
-//         cardHTML.remove();
-//         localStorage.removeItem(cardHTML.attr(id));
-//     }
+//     
 // };
 
 
