@@ -11,7 +11,6 @@ IdeaCard.prototype.read = function() {
         this.read = true
         .hide()
     } else{this.read = false}
-
 }
 
 function generateCard(idea) {
@@ -29,6 +28,7 @@ function generateCard(idea) {
             </section>
         </li>`;
     $('.card-container').prepend(createCard);
+    $(.user-Input).reset();
 }
 
 $('.save-btn').on('click', function(event) {
@@ -39,10 +39,21 @@ $('.save-btn').on('click', function(event) {
     generateCard(newCard); 
 });
 
-$('.container-box').on('click', '.checked-btn', function(){
-    $(this).parent().toggleClass('marked-as-read');
-    return 
-});
+// Event Listeners
+$('.container-box').on('click', '.delete-btn', removeCard);
+$('.container-box').on('click', '.checked-btn', completedTask);
+
+function removeCard() {
+  if ($(this).hasClass('delete-btn')) {
+    $(this).parents('.card-content').remove();
+  }
+  localStorage.removeItem($(this).parents('.card-container').attr('id'));
+}
+
+function completedTask(){
+  var markedAsRead = $('.checked-btn');  
+  $(this).parent().toggleClass("marked-as-read")
+};
 
 $('.user-input').on('input', ('.title-input, body-input'), function() {
       if ($('.title-input').val() === "" || body.val() === "") {
@@ -87,6 +98,16 @@ function arrayFromLocalStorage() {
   };
   filterSearch(newArray);
 };
+
+// Persisting Edits on Card
+//     var cardHTML = $(this).closest('.card-container').attr('id');
+//     var cardObjectInJSON = localStorage.getItem(cardHTML);
+//     var cardObjectInJS = JSON.parse(cardObjectInJSON);
+//     var changeQuality = qualityVariable.text;
+//     cardObjectInJS.quality = changeQuality;
+//     var newCardJSON = JSON.stringify(cardObjectInJS);
+//     localStorage.setItem(cardHTML, newCardJSON);
+
 
 
 
