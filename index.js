@@ -3,15 +3,14 @@ function IdeaCard(title, body, id, importance) {
     this.body = body;
     this.id = Date.now();
     this.importance = importance || 'Normal';
-    this.read = false
+    // this.read = read;
 }
 
-// IdeaCard.prototype.read = function() {
-//     if($('li').hasClass('marked-as-read')) {
-//         this.read = true
-//         .hide()
-//     } else{this.read = false}
-// }
+IdeaCard.prototype.read = function() {
+    if($('.card-content').hasClass('marked-as-read')) {
+        this.read = true;
+    } else{this.read = false}
+}
 
 function generateCard(idea) {
     var createCard =
@@ -52,6 +51,7 @@ function completedTask(){
   $(this).parent().toggleClass("marked-as-read")
 };
 
+
 $('.user-input').on('input', ('.title-input, .body-input'), function() {
       if ($('.title-input').val() === "" || $('.body-input').val === "") {
         $('.save-btn').prop('disabled', true);
@@ -65,7 +65,8 @@ $(window).on('load', function () {
         var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i))
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
         generateCard(parsedLocalStorageData);
-    }
+    // $('.card-content').hasClass('.marked-as-read').hide()
+}
 })
 
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
@@ -78,10 +79,11 @@ $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
         } else if ($(this).attr('class') === "btn downvote-btn" && arrayIndex > -1) {
             currentImportance.text(importanceArray[arrayIndex - 1]);
         }
-//     var id = $(this).closest('article').attr('id')
-//     var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
-//     parsedFromLocalStorage.importance = currentImportance.text(importanceArray[arrayIndex]);
-//     var setObject = localStorage.setItem(id, JSON.stringify(parseObjectFromLocalStorage));
+    var id = $(this).closest('.card-content').attr('id')
+    var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
+    updateImportance = importanceArray[arrayIndex];
+    parsedFromLocalStorage.importance = updateImportance;
+    var setObject = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
  })
 
 $('.search-ideas').on('keyup', arrayFromLocalStorage)
