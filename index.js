@@ -1,31 +1,39 @@
-function IdeaCard(title, body, id, quality) {
+function IdeaCard(title, body, id, importance) {
     this.title = title;
     this.body = body;
     this.id = Date.now();
-    this.quality = quality || "Normal"
+    this.importance = importance || 'Normal';
+    this.read = false
+}
+
+IdeaCard.prototype.read = function() {
+    if($('li').hasClass('marked-as-read')) {
+        this.read = true
+        .hide()
+    } else{this.read = false}
 }
 
 function generateCard(idea) {
     var createCard =
         `<li id="${idea.id}" class="card-container">
-        <section class="card-content">
-        <h2 class="card-title"> ${idea.title}</h2>
-        <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
-        <p class="card-body">
-        "${idea.body}"</p>
-        <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
-        <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
-        <p class="todo-rating">Importance: <span class="importanceVariable">${idea.quality}</span></p><button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
-        <hr>
-        </section>
+            <section class="card-content">
+                <h2 class="card-title"> ${idea.title}</h2>
+                <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
+                <p class="card-body">"${idea.body}"</p>
+                <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
+                <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
+                <p class="todo-rating">Importance: <span class="importance-quality">${idea.importance}</span></p>
+                <button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
+                <hr>
+            </section>
         </li>`;
-    ideaSection.prepend(createCard);
+    $('.card-container').prepend(createCard);
     $(.user-Input).reset();
 }
 
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
-    var newCard = new IdeaCard(title.val(), body.val(), idByDate, null);
+    var newCard = new IdeaCard($('.title-input').val(), $('.body-input').val(), idByDate, null, false);
     var idByDate = Date.now();
     localStorage.setItem(idByDate, JSON.stringify(newCard)) ; 
     generateCard(newCard); 
@@ -47,11 +55,11 @@ function completedTask(){
   $(this).parent().toggleClass("marked-as-read")
 };
 
-$('.user-input').on('input', (title, body), function() {
-      if (title.val() === "" || body.val() === "") {
-        saveButton.prop('disabled', true);
+$('.user-input').on('input', ('.title-input, body-input'), function() {
+      if ($('.title-input').val() === "" || body.val() === "") {
+        $('.save-btn').prop('disabled', true);
     } else {
-        saveButton.prop('disabled', false);
+        $('.save-btn').prop('disabled', false);
     }
 });
 
@@ -61,41 +69,37 @@ $(window).on('load', function () {
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
         generateCard(parsedLocalStorageData);
     }
-});
-
-$(window).on('load', function () {
-    if ($('.card-container').hasClass('.card-content')) {
-        $('.card-container').hide();
-    }
 })
 
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
-    console.log("hello")
-    var importanceArray = ['none', 'low', 'normal', 'high', 'critical']
-    var currentImportance = $(this).siblings('.importanceVariable')
-    var importanceArrayIndex = importanceArray.indexOf(currentImportance.text())
-        if ($(this).className === "upvote-btn" && importanceArrayIndex < 4) {
-            importanceVariable.text = importanceArray[index + 1];
-            console.log("hello")
+    var importanceArray = ['None', 'Low', 'Normal', 'High', 'Critical']
+    var currentImportance = $(this).closest('section').find('.importance-quality');
+    var arrayIndex = importanceArray.indexOf(currentImportance.text());
+        if ($(this).attr('class') === "btn upvote-btn" && arrayIndex < 4) {
+            currentImportance.text(importanceArray[arrayIndex + 1]);
+            console.log(arrayIndex)
+        } else if ($(this).attr('class') === "btn downvote-btn" && arrayIndex > -1) {
+            currentImportance.text(importanceArray[arrayIndex - 1]);
         }
-        if ($(this).className === "downvote-btn" && importanceArraIndex > -1) {
-            currentVariable.text = importanceArray[index - 1];
-        }
-})
+//     var id = $(this).closest('article').attr('id')
+//     var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
+//     parsedFromLocalStorage.importance = currentImportance.text(importanceArray[arrayIndex]);
+//     var setObject = localStorage.setItem(id, JSON.stringify(parseObjectFromLocalStorage));
+ })
 
-//         if ($(this).className === "upvote" && qualityArrayIndex < 4) {
-//             currentQuality
+$('.search-ideas').on('keyup', arrayFromLocalStorage)
 
-//     var cardData = JSON.parse(this);
-// JavascriptEdit
-//     $(".bottom-box").prepend(newCard());
-// });
+function arrayFromLocalStorage() {
+  var newArray = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
+    var parsedObject = JSON.parse(retrievedObject);
+    newArray.push(parsedObject);
+  };
+  filterSearch(newArray);
+};
 
-// var localStoreCard = function() {
-//     var cardString = JSON.stringify(cardObject());
-//     localStorage.setItem('')
-// }
-     
+// Persisting Edits on Card
 //     var cardHTML = $(this).closest('.card-container').attr('id');
 //     var cardObjectInJSON = localStorage.getItem(cardHTML);
 //     var cardObjectInJS = JSON.parse(cardObjectInJSON);
@@ -103,10 +107,8 @@ $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
 //     cardObjectInJS.quality = changeQuality;
 //     var newCardJSON = JSON.stringify(cardObjectInJS);
 //     localStorage.setItem(cardHTML, newCardJSON);
-//     }
 
-//     
-// };
+
 
 
 
