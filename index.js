@@ -3,20 +3,19 @@ function IdeaCard(title, body, id, importance) {
     this.body = body;
     this.id = Date.now();
     this.importance = importance || 'Normal';
-    // this.read = read;
+    this.read = false
 }
 
-IdeaCard.prototype.read = function() {
-    if($('li').hasClass('marked-as-read')) {
-        this.read = true
-        .hide()
-    } else{this.read = false}
-}
+// IdeaCard.prototype.read = function() {
+//     if($('li').hasClass('marked-as-read')) {
+//         this.read = true
+//         .hide()
+//     } else{this.read = false}
+// }
 
 function generateCard(idea) {
     var createCard =
-        `<li id="${idea.id}" class="card-container">
-            <section class="card-content">
+        `<section id="${idea.id}" class="card-content">
                 <h2 class="card-title"> ${idea.title}</h2>
                 <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
                 <p class="card-body">"${idea.body}"</p>
@@ -25,10 +24,8 @@ function generateCard(idea) {
                 <p class="todo-rating">Importance: <span class="importance-quality">${idea.importance}</span></p>
                 <button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
                 <hr>
-            </section>
-        </li>`;
+            </section>`;
     $('.card-container').prepend(createCard);
-    // $('.user-input').reset();
 }
 
 $('.save-btn').on('click', function(event) {
@@ -45,9 +42,9 @@ $('.container-box').on('click', '.checked-btn', completedTask);
 
 function removeCard() {
   if ($(this).hasClass('delete-btn')) {
-    $(this).parents('.card-container').remove();
+    $(this).parents('.card-content').remove();
   }
-  localStorage.removeItem($(this).parents('.card-container').attr('id'));
+  localStorage.removeItem($(this).parents('.card-content').attr('id'));
 }
 
 function completedTask(){
