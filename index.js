@@ -5,6 +5,7 @@ var saveButton = $('.save-btn');
 var numCards = 0;
 var idByDate = Date.now();
 var markedAsRead = $('.checked-btn');
+var userInput = document.querySelector('.user-input');
 
 function IdeaCard(title, body, id, quality) {
     this.title = title;
@@ -28,6 +29,7 @@ function generateCard(idea) {
         </section>
         </li>`;
     ideaSection.prepend(createCard);
+    userInput.reset();
 }
 
 $('.save-btn').on('click', function(event) {
@@ -37,11 +39,21 @@ $('.save-btn').on('click', function(event) {
     generateCard(newCard); 
 });
 
-$('.container-box').on('click', '.checked-btn', function(){
-    $(this)
-    .parent()
-    .toggleClass("marked-as-read");
-});
+// Event Listeners
+$('.container-box').on('click', '.delete-btn', removeCard);
+$('.container-box').on('click', '.checked-btn', completedTask);
+
+function removeCard() {
+  if ($(this).hasClass('delete-btn')) {
+    $(this).parents('.card-content').remove();
+  }
+  localStorage.removeItem($(this).parents('.card-container').attr('id'));
+}
+
+function completedTask(){
+    $(this).parent().toggleClass("marked-as-read")
+};
+
 
 $('.user-input').on('input', (title, body), function() {
       if (title.val() === "" || body.val() === "") {
@@ -57,7 +69,7 @@ $(window).on('load', function () {
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
         generateCard(parsedLocalStorageData);
     }
-})
+});
 
 //     var cardData = JSON.parse(this);
 // JavascriptEdit
@@ -71,7 +83,7 @@ $(window).on('load', function () {
 
 
 // // refactor. no nested if statements
-// $(".bottom-box").on('click', function(event){
+// 
 //     var qualityArray = ['swill', 'plausible', 'genius']
 //     var currentQuality = $(this).closest('.card-container').find(".qualityVariable")
 //     var qualityArrayIndex = qualityArray.indexOf(currentQuality.text)
@@ -90,13 +102,8 @@ $(window).on('load', function () {
 //     localStorage.setItem(cardHTML, newCardJSON);
 //     }
 
-//     else if ($(this).className === "delete-button") {
-//         var cardHTML = $(this).closest('.card-container');
-//         cardHTML.remove();
-//         localStorage.removeItem(cardHTML.attr(id));
-//     }
+//     
 // };
-      
 
 
 
