@@ -28,7 +28,7 @@ function generateCard(idea) {
             </section>
         </li>`;
     $('.card-container').prepend(createCard);
-    $(.user-Input).reset();
+    // $('.user-input').reset();
 }
 
 $('.save-btn').on('click', function(event) {
@@ -55,8 +55,8 @@ function completedTask(){
   $(this).parent().toggleClass("marked-as-read")
 };
 
-$('.user-input').on('input', ('.title-input, body-input'), function() {
-      if ($('.title-input').val() === "" || body.val() === "") {
+$('.user-input').on('input', ('.title-input, .body-input'), function() {
+      if ($('.title-input').val() === "" || $('.body-input').val === "") {
         $('.save-btn').prop('disabled', true);
     } else {
         $('.save-btn').prop('disabled', false);
