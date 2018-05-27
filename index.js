@@ -37,9 +37,7 @@ $('.save-btn').on('click', function(event) {
 });
 
 $('.container-box').on('click', '.checked-btn', function(){
-    $(this)
-    .parent()
-    .toggleClass("marked-as-read");
+    $(this).parent().toggleClass('marked-as-read');
 });
 
 $('.user-input').on('input', (title, body), function() {
@@ -58,11 +56,12 @@ $(window).on('load', function () {
     }
 })
 
-$(window).on('load', function () {
-    if ($('.card-container').hasClass('.card-content')) {
-        $('.card-container').hide();
-    }
-})
+$(window).on('load', hideRead) 
+
+function hideRead() {
+    if ($('.card-container').hasClass('.marked-as-read');
+        
+}
 
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
     console.log("hello")
