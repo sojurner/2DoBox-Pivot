@@ -1,16 +1,7 @@
-var title = $('.title-input');
-var body = $('.body-input');
-var ideaSection = $('.card-container');
-var saveButton = $('.save-btn');
-var numCards = 0;
-var idByDate = Date.now();
-var markedAsRead = $('.checked-btn');
-var userInput = document.querySelector('.user-input');
-
 function IdeaCard(title, body, id, quality) {
     this.title = title;
     this.body = body;
-    this.id = idByDate;
+    this.id = Date.now();
     this.quality = quality || "Normal"
 }
 
@@ -24,17 +15,18 @@ function generateCard(idea) {
         "${idea.body}"</p>
         <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
         <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
-        <p class="todo-rating">Importance: <span class="qualityVariable">${idea.quality}</span></p><button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
+        <p class="todo-rating">Importance: <span class="importanceVariable">${idea.quality}</span></p><button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
         <hr>
         </section>
         </li>`;
     ideaSection.prepend(createCard);
-    userInput.reset();
+    $(.user-Input).reset();
 }
 
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
     var newCard = new IdeaCard(title.val(), body.val(), idByDate, null);
+    var idByDate = Date.now();
     localStorage.setItem(idByDate, JSON.stringify(newCard)) ; 
     generateCard(newCard); 
 });
@@ -51,9 +43,9 @@ function removeCard() {
 }
 
 function completedTask(){
-    $(this).parent().toggleClass("marked-as-read")
+  var markedAsRead = $('.checked-btn');  
+  $(this).parent().toggleClass("marked-as-read")
 };
-
 
 $('.user-input').on('input', (title, body), function() {
       if (title.val() === "" || body.val() === "") {
@@ -71,6 +63,29 @@ $(window).on('load', function () {
     }
 });
 
+$(window).on('load', function () {
+    if ($('.card-container').hasClass('.card-content')) {
+        $('.card-container').hide();
+    }
+})
+
+$('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
+    console.log("hello")
+    var importanceArray = ['none', 'low', 'normal', 'high', 'critical']
+    var currentImportance = $(this).siblings('.importanceVariable')
+    var importanceArrayIndex = importanceArray.indexOf(currentImportance.text())
+        if ($(this).className === "upvote-btn" && importanceArrayIndex < 4) {
+            importanceVariable.text = importanceArray[index + 1];
+            console.log("hello")
+        }
+        if ($(this).className === "downvote-btn" && importanceArraIndex > -1) {
+            currentVariable.text = importanceArray[index - 1];
+        }
+})
+
+//         if ($(this).className === "upvote" && qualityArrayIndex < 4) {
+//             currentQuality
+
 //     var cardData = JSON.parse(this);
 // JavascriptEdit
 //     $(".bottom-box").prepend(newCard());
@@ -80,19 +95,7 @@ $(window).on('load', function () {
 //     var cardString = JSON.stringify(cardObject());
 //     localStorage.setItem('')
 // }
-
-
-// // refactor. no nested if statements
-// 
-//     var qualityArray = ['swill', 'plausible', 'genius']
-//     var currentQuality = $(this).closest('.card-container').find(".qualityVariable")
-//     var qualityArrayIndex = qualityArray.indexOf(currentQuality.text)
-//     if ($(this).className === "upvote" || $(this).className === "downvote"){
-
-//         if ($(this).className === "upvote" && qualityArrayIndex < 4) {
-//             currentQuality
-
-        
+     
 //     var cardHTML = $(this).closest('.card-container').attr('id');
 //     var cardObjectInJSON = localStorage.getItem(cardHTML);
 //     var cardObjectInJS = JSON.parse(cardObjectInJSON);
