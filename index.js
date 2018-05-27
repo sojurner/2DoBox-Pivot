@@ -56,12 +56,11 @@ $(window).on('load', function () {
     }
 })
 
-$(window).on('load', hideRead) 
-
-function hideRead() {
-    if ($('.card-container').hasClass('.marked-as-read');
-        
-}
+$(window).on('load', function () {
+    if ($('.card-container').hasClass('.card-content')) {
+        $('.card-container').hide();
+    }
+})
 
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
     console.log("hello")
