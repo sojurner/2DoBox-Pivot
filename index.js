@@ -3,7 +3,7 @@ function IdeaCard(title, body, id, importance) {
     this.body = body;
     this.id = Date.now();
     this.importance = importance || 'Normal';
-    this.read = false
+    // this.read = read;
 }
 
 IdeaCard.prototype.read = function() {
@@ -45,7 +45,7 @@ $('.container-box').on('click', '.checked-btn', completedTask);
 
 function removeCard() {
   if ($(this).hasClass('delete-btn')) {
-    $(this).parents('.card-content').remove();
+    $(this).parents('.card-container').remove();
   }
   localStorage.removeItem($(this).parents('.card-container').attr('id'));
 }
