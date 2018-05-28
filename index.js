@@ -71,6 +71,7 @@ function persisitLocalStorage() {
     }
 }
 
+
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), importanceQualityEdit)
 
 function importanceQualityEdit () {
@@ -119,10 +120,15 @@ function updateUserEdit() {
 
 
 
+var showMenu = document.querySelector(".show-menu-btn");
 
+showMenu.addEventListener("click", function() {
+    toggleMenuExpansion();
+  });
 
+  function toggleMenuExpansion() {
+    var element = document.getElementById("butts");
+    element.classList.toggle("show-expanded-menu");
+  }
 
-
-
-
-
+  
