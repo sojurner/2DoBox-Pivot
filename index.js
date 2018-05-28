@@ -3,13 +3,7 @@ function IdeaCard(title, body, id, importance) {
     this.body = body;
     this.id = Date.now();
     this.importance = importance || 'Normal';
-    // this.read = read;
-}
-
-IdeaCard.prototype.read = function() {
-    if($('.card-content').hasClass('marked-as-read')) {
-        this.read = true;
-    } else{this.read = false}
+    this.read = false;
 }
 
 function generateCard(idea) {
@@ -37,7 +31,7 @@ $('.save-btn').on('click', function(event) {
 
 // Event Listeners
 $('.container-box').on('click', '.delete-btn', removeCard);
-$('.container-box').on('click', '.checked-btn', completedTask);
+$('.container-box').on('click', '.checked-btn', markedTask);
 
 function removeCard() {
   if ($(this).hasClass('delete-btn')) {
@@ -46,10 +40,14 @@ function removeCard() {
   localStorage.removeItem($(this).parents('.card-content').attr('id'));
 }
 
-function completedTask(){
-  var markedAsRead = $('.checked-btn');  
-  $(this).parent().toggleClass("marked-as-read")
-};
+function markedTask(object){
+    object.read = !object.read; 
+    $(this).parent().toggleClass("marked-as-read");
+    var readMark = $(this).closest('.card-content').attr('id');
+    var CardfromLocalStorage = JSON.parse(localStorage.getItem(readMark));
+    CardfromLocalStorage.read = !CardfromLocalStorage.read;
+    var sendToLocalStorage = localStorage.setItem(readMark, JSON.stringify(CardfromLocalStorage));
+}
 
 
 $('.user-input').on('input', ('.title-input, .body-input'), function() {
@@ -62,16 +60,17 @@ $('.user-input').on('input', ('.title-input, .body-input'), function() {
 
 $(window).on('load', function () {
     for(var i = 0; i<localStorage.length; i++) {
-        var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i))
+        var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i));
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
+        // var markedAsRead = 
         generateCard(parsedLocalStorageData);
-    // $('.card-content').hasClass('.marked-as-read').hide()
-}
+    }
 })
 
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
-    var importanceArray = ['None', 'Low', 'Normal', 'High', 'Critical']
+    var importanceArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
     var currentImportance = $(this).closest('section').find('.importance-quality');
+    console.log(currentImportance)
     var arrayIndex = importanceArray.indexOf(currentImportance.text());
         if ($(this).attr('class') === "btn upvote-btn" && arrayIndex < 4) {
             currentImportance.text(importanceArray[arrayIndex + 1]);
@@ -86,27 +85,20 @@ $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
     var setObject = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
  })
 
-$('.search-ideas').on('keyup', arrayFromLocalStorage)
+$('.search-ideas').on('keyup', listFilter);
 
-function arrayFromLocalStorage() {
-  var newArray = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    var retrievedObject = localStorage.getItem(localStorage.key(i));
-    var parsedObject = JSON.parse(retrievedObject);
-    newArray.push(parsedObject);
-  };
-  filterSearch(newArray);
-};
-
-// Persisting Edits on Card
-//     var cardHTML = $(this).closest('.card-container').attr('id');
-//     var cardObjectInJSON = localStorage.getItem(cardHTML);
-//     var cardObjectInJS = JSON.parse(cardObjectInJSON);
-//     var changeQuality = qualityVariable.text;
-//     cardObjectInJS.quality = changeQuality;
-//     var newCardJSON = JSON.stringify(cardObjectInJS);
-//     localStorage.setItem(cardHTML, newCardJSON);
-
+function listFilter(search) {
+  var rawSearchInput = $('.search-ideas').val();
+  var search = rawSearchInput.trim();
+  $.extend($.expr[":"], {
+    "contains": function(elem, i, match, array) {
+      return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+    }
+  });
+    $('h2:contains(' + search + ')').closest('.card-content').show();
+    $('h2:not(:contains(' + search + '))').closest('.card-content').hide();
+    $('p:contains(' + search + ')').closest('.card-content').show();  
+}
 
 
 
