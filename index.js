@@ -67,6 +67,7 @@ $(window).on('load', function () {
     }
 })
 
+
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
     var importanceArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
     var currentImportance = $(this).closest('section').find('.importance-quality');
@@ -101,10 +102,15 @@ function listFilter(search) {
 }
 
 
+var showMenu = document.querySelector(".show-menu-btn");
 
+showMenu.addEventListener("click", function() {
+    toggleMenuExpansion();
+  });
 
+  function toggleMenuExpansion() {
+    var element = document.getElementById("butts");
+    element.classList.toggle("show-expanded-menu");
+  }
 
-
-
-
-
+  

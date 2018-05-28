@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -21,20 +23,24 @@
                     <input class="search-ideas" type="text" placeholder="Filter">
                 </article>
             </form>
-            <li class="card-container">
-                <!-- <section class="card-content">
-                <h2 class="card-title">Example Idea</h2>
-                <button class="btn delete-btn" aria-label="the button for deleting a todo" aria-label></button>
-                <p class="card-body">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas tempore suscipit vero magnam sed labore laboriosam
-                    voluptatum iure unde omnis!</p>
-                <button class="btn upvote-btn" aria-label="the button for upvoting a todo"></button>
-                <button class="btn downvote-btn" aria-label="the button for downvoting a todo"></button>
-                <p class="todo-rating">Importance: CRITICAL MASS</p><button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
-                </section> -->
+            <button class="btn show-menu-btn" aria-label="the button for showing more menu options">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <br>
+            <container id="butts" class="expanded-menu show-expanded-menu">
+                <a href="#"><li class="least-importance">None</li></a>
+                <a href="#"><li class="low-importance">Low</li></a>
+                <a href="#"><li class="neautral-importance">Normal</li></a>
+                <a href="#"><li class="high-importance">High</li></a>
+                <a href="#"><li class="critical-importance">Critical</li></a>
+                <a href="#"><li class="show-completed">Show Completed</li></a>
+            </container>
+            <li class="card-container"></li>
             </li>
         </article>
     </section>
     <script src="./jquery/jquery-3.2.1.js"></script>
     <script src="./index.js"></script>
 </body>
+
 </html>
