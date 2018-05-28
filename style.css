@@ -107,6 +107,9 @@ input,
   background-color: #e5f3f2;
   transition: all 0.s linear;
 }
+.toggle-show-hide {
+  display: none;
+}
 
 hr {
   margin-bottom: .5rem;

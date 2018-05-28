@@ -9,9 +9,9 @@ function IdeaCard(title, body, id, importance) {
 function generateCard(idea) {
     var createCard =
         `<section id="${idea.id}" class="card-content">
-                <h2 class="card-title"> ${idea.title}</h2>
+                <h2 class="card-title" contenteditable="true"> ${idea.title}</h2>
                 <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
-                <p class="card-body">"${idea.body}"</p>
+                <p class="card-body" contenteditable="true">"${idea.body}"</p>
                 <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
                 <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
                 <p class="todo-rating">Importance: <span class="importance-quality">${idea.importance}</span></p>
@@ -21,17 +21,17 @@ function generateCard(idea) {
     $('.card-container').prepend(createCard);
 }
 
-$('.save-btn').on('click', function(event) {
+$('.save-btn').on('click', generateCardObject)
+
+function generateCardObject(event) {
     event.preventDefault();
     var newCard = new IdeaCard($('.title-input').val(), $('.body-input').val(), idByDate, null, false);
     var idByDate = Date.now();
-    localStorage.setItem(idByDate, JSON.stringify(newCard)) ; 
+    localStorage.setItem(idByDate, JSON.stringify(newCard)); 
     generateCard(newCard); 
-});
+}
 
-// Event Listeners
 $('.container-box').on('click', '.delete-btn', removeCard);
-$('.container-box').on('click', '.checked-btn', markedTask);
 
 function removeCard() {
   if ($(this).hasClass('delete-btn')) {
@@ -40,15 +40,16 @@ function removeCard() {
   localStorage.removeItem($(this).parents('.card-content').attr('id'));
 }
 
+$('.container-box').on('click', '.checked-btn', markedTask);
+
 function markedTask(object){
     object.read = !object.read; 
     $(this).parent().toggleClass("marked-as-read");
     var readMark = $(this).closest('.card-content').attr('id');
-    var CardfromLocalStorage = JSON.parse(localStorage.getItem(readMark));
-    CardfromLocalStorage.read = !CardfromLocalStorage.read;
-    var sendToLocalStorage = localStorage.setItem(readMark, JSON.stringify(CardfromLocalStorage));
+    var cardfromStorage = JSON.parse(localStorage.getItem(readMark));
+    cardfromStorage.read = !(cardfromStorage.read);
+    var sendToLocalStorage = localStorage.setItem(readMark, JSON.stringify(cardfromStorage));
 }
-
 
 $('.user-input').on('input', ('.title-input, .body-input'), function() {
       if ($('.title-input').val() === "" || $('.body-input').val === "") {
@@ -58,19 +59,23 @@ $('.user-input').on('input', ('.title-input, .body-input'), function() {
     }
 });
 
-$(window).on('load', function () {
+$(window).on('load', persisitLocalStorage)
+    
+function persisitLocalStorage() {
     for(var i = 0; i<localStorage.length; i++) {
         var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i));
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
-        // var markedAsRead = 
-        generateCard(parsedLocalStorageData);
+        if (parsedLocalStorageData.read === false) {
+            generateCard(parsedLocalStorageData); 
+        }
     }
-})
+}
 
-$('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
+$('.container-box').on('click', ('.upvote-btn, .downvote-btn'), importanceQualityEdit)
+
+function importanceQualityEdit () {
     var importanceArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
     var currentImportance = $(this).closest('section').find('.importance-quality');
-    console.log(currentImportance)
     var arrayIndex = importanceArray.indexOf(currentImportance.text());
         if ($(this).attr('class') === "btn upvote-btn" && arrayIndex < 4) {
             currentImportance.text(importanceArray[arrayIndex + 1]);
@@ -83,7 +88,7 @@ $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), function() {
     updateImportance = importanceArray[arrayIndex];
     parsedFromLocalStorage.importance = updateImportance;
     var setObject = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
- })
+}
 
 $('.search-ideas').on('keyup', listFilter);
 
@@ -99,6 +104,19 @@ function listFilter(search) {
     $('h2:not(:contains(' + search + '))').closest('.card-content').hide();
     $('p:contains(' + search + ')').closest('.card-content').show();  
 }
+
+$('.container-box').on('blur', ('.card-title, .card-body'), updateUserEdit)
+
+function updateUserEdit() {
+    var id = $(this).closest('section').attr('id')
+    var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id))
+    parsedFromLocalStorage.title = $(this).text();
+    parsedFromLocalStorage.body = $(this).text();
+    sendStringifyStorage = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage))
+}
+
+
+
 
 
 
