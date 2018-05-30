@@ -20,17 +20,29 @@ body {
 /*------------------TITLE SECTION------------------*/
 
 .top-box {
-
   background: #d7f2f0; /* Old browsers */
-  background: -moz-linear-gradient(top, #d7f2f0 0%, #ffffff 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #d7f2f0 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #d7f2f0 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(
+    top,
+    #d7f2f0 0%,
+    #fff 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    #d7f2f0 0%,
+    #fff 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #d7f2f0 0%,
+    #fff 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7f2f0', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
   height: 300px;
   margin: 0;
   text-align: center;
   width: 100%;
 }
+
 h1 {
   color: #00a79d;
   font-size: 3.2rem;
@@ -40,7 +52,6 @@ h1 {
 h1 span {
   color: #6d6e71;
 }
-
 
 /*------------------INPUT FORM------------------*/
 
@@ -53,7 +64,7 @@ input,
 .save-btn {
   border: 0.06em solid #d1d2d3;
   box-sizing: border-box;
-  color: #c3c4c6;;
+  color: #c3c4c6;
   font-size: 1.7rem;
   margin: 0.5rem;
   padding: 2px 5px;
@@ -71,6 +82,7 @@ input,
 .save-btn:hover {
   background-color: #045e55;
 }
+
 /*-----------------Expanded Menu------------------*/
 
 i {
@@ -83,28 +95,35 @@ i:hover {
   color: #045e55;
 }
 
-
-.expanded-menu{
-  list-style-type: none;
-  
+#rating-btn {
+  display: flex;
+  justify-content: space-between;
 }
 
-.expanded-menu li{
-  display: inline;
-  margin: 0 1rem;
+.rate-btn {
+  border: none;
+  border-radius: 20px;
+  font-size: 1.3rem;
+  margin-right: 20px;
+}
+
+.rate-btn:hover {
+  background-color: rgb(212, 212, 212);
+}
+
+.expanded-menu li {
   color: #939598;
   cursor: pointer;
+  display: inline;
+  margin: 1rem;
   text-decoration: none;
-  
 }
 
-.show-expanded-menu{
+.show-expanded-menu {
   display: none;
 }
 
 /*------------------IDEA CARD------------------*/
-
-
 
 .card-container {
   list-style: none;
@@ -112,11 +131,11 @@ i:hover {
   width: 40rem;
 }
 
-.card-content{
+.card-content {
   box-sizing: border-box;
   margin: 0.5rem;
-  width: 100%;
   text-align: left;
+  width: 100%;
 }
 
 .card-title {
@@ -129,19 +148,19 @@ i:hover {
 .card-body {
   color: #939598;
   font-family: "Open Sans", sans-serif;
-  font-size: 100%;
 }
 
 .marked-as-read {
   background-color: #e5f3f2;
-  transition: all 0.s linear;
+  transition: all 0s linear;
 }
+
 .toggle-show-hide {
   display: none;
 }
 
 hr {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   width: 100%;
 }
 
@@ -165,14 +184,14 @@ hr {
   background-image: url(./images/upvote-hover.svg);
 }
 
-.checked-btn{
+.checked-btn {
   background-image: url(./images/checked.png);
   bottom: 40px;
   float: right;
   position: relative;
 }
 
-.checked-btn:hover{
+.checked-btn:hover {
   background-image: url(./images/checked-hover.png);
 }
 
@@ -207,6 +226,7 @@ hr {
   .top-box {
     height: 350px;
   }
+  
   form,
   .card-container {
     width: 90%;

@@ -58,15 +58,18 @@ function markedTask(object){
     var sendToLocalStorage = localStorage.setItem(readMark, JSON.stringify(cardfromStorage));
 }
 
-$('.user-input').on('input', ('.title-input, .body-input'), function() {
-      if ($('.title-input').val() === "" || $('.body-input').val === "") {
+
+$('.user-input').on('input', ('.title-input, .body-input'), enableDisableSaveButton);
+
+function enableDisableSaveButton() {
+      if ($('.title-input').val() === '' || $('.body-input').val === '') {
         $('.save-btn').prop('disabled', true);
     } else {
         $('.save-btn').prop('disabled', false);
     }   
-});
+}
 
-$(window).on('load', persisitLocalStorage)
+$(window).on('load', persisitLocalStorage);
     
 function persisitLocalStorage() {
     for(var i = 0; i<localStorage.length; i++) {
@@ -78,19 +81,19 @@ function persisitLocalStorage() {
     }
 }
 
-$('.container-box').on('click', ('.upvote-btn, .downvote-btn'), importanceQualityEdit)
+$('.container-box').on('click', ('.upvote-btn, .downvote-btn'), importanceQualityEdit);
 
 function importanceQualityEdit () {
     var importanceArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
     var currentImportance = $(this).closest('section').find('.importance-quality');
     var arrayIndex = importanceArray.indexOf(currentImportance.text());
-        if ($(this).attr('class') === "btn upvote-btn" && arrayIndex <= 3) {
+        if ($(this).attr('class') === 'btn upvote-btn' && arrayIndex <= 3) {
             currentImportance.text(importanceArray[arrayIndex + 1]);
         } 
-        if ($(this).attr('class') === "btn downvote-btn" && arrayIndex >= 1) {
+        if ($(this).attr('class') === 'btn downvote-btn' && arrayIndex >= 1) {
             currentImportance.text(importanceArray[arrayIndex - 1]);
         }
-    var id = $(this).closest('.card-content').attr('id')
+    var id = $(this).closest('.card-content').attr('id');
     var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
     parsedFromLocalStorage.importance = currentImportance.text();
     var setObject = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
@@ -102,8 +105,8 @@ function listFilter(search) {
   var rawSearchInput = $('.search-ideas').val();
   var search = rawSearchInput.trim();
   $.extend($.expr[":"], {
-    "contains": function(elem, i, match, array) {
-      return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+    'contains': function(elem, i, match, array) {
+      return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || '').toLowerCase()) >= 0;
     }
   });
     $('h2:contains(' + search + ')').closest('.card-content').show();
@@ -111,24 +114,23 @@ function listFilter(search) {
     $('p:contains(' + search + ')').closest('.card-content').show();  
 }
 
-$('.container-box').on('blur', ('.card-title, .card-body'), updateUserEdit)
+$('.container-box').on('blur', ('.card-title, .card-body'), updateUserEdit);
 
 function updateUserEdit() {
-    var id = $(this).closest('section').attr('id')
-    var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id))
+    var id = $(this).closest('section').attr('id');
+    var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
     parsedFromLocalStorage.title = $(this).text();
     parsedFromLocalStorage.body = $(this).text();
-    sendStringifyStorage = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage))
+    sendStringifyStorage = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
 }
 
-$('.show-menu-btn').on('click', toggleMenuExpansion) 
+$('.show-menu-btn').on('click', toggleMenuExpansion); 
 
 function toggleMenuExpansion() {
-    var element = document.getElementById("butts");
-    element.classList.toggle("show-expanded-menu");
+    $('#bunch-of-btns').toggleClass('show-expanded-menu');
 }
 
-$('.show-completed').on('click', showMarkedRead)
+$('.show-completed').on('click', showMarkedRead);
 
 function showMarkedRead() {
     for(var i = 0; i<localStorage.length; i++) {
@@ -140,4 +142,3 @@ function showMarkedRead() {
     }
     $('.show-completed').prop('disabled', true);    
 }
-
