@@ -1,13 +1,13 @@
-###2DOBOXPIVOT
+#### 2DOBOXPIVOT
 
 This is a refactored version of the previous project, IdeaBox, turning it into a Todo-list app.
 Now includes:
-Functionality of marking todo's as completed
-Increased importance ranging from None to Critical
-Filtering through todo's
-Persisting in local storage
-Cards marked as completed will be hidden on refresh, but can be displayed by clicking "Show Completed"
-Show completed button is shown after the user clicks the plus sign
+* Functionality of marking todo's as completed
+* Increased importance ranging from None to Critical
+* Filtering through todo's
+* Persisting in local storage
+* Cards marked as completed will be hidden on refresh, but can be displayed by clicking "Show Completed"
+* Show completed button is shown after the user clicks the plus sign
 
 
 
