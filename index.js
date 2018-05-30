@@ -28,7 +28,14 @@ function generateCardObject(event) {
     var newCard = new IdeaCard($('.title-input').val(), $('.body-input').val(), idByDate, null, false);
     var idByDate = Date.now();
     localStorage.setItem(idByDate, JSON.stringify(newCard)); 
+    clearInputFields()
     generateCard(newCard); 
+}
+
+function clearInputFields() {
+    $('.title-input').val('');
+    $('.body-input').val('');
+    $('.title-input').focus();
 }
 
 $('.container-box').on('click', '.delete-btn', removeCard);
@@ -56,7 +63,7 @@ $('.user-input').on('input', ('.title-input, .body-input'), function() {
         $('.save-btn').prop('disabled', true);
     } else {
         $('.save-btn').prop('disabled', false);
-    }
+    }   
 });
 
 $(window).on('load', persisitLocalStorage)
@@ -71,23 +78,21 @@ function persisitLocalStorage() {
     }
 }
 
-
 $('.container-box').on('click', ('.upvote-btn, .downvote-btn'), importanceQualityEdit)
 
 function importanceQualityEdit () {
     var importanceArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
     var currentImportance = $(this).closest('section').find('.importance-quality');
     var arrayIndex = importanceArray.indexOf(currentImportance.text());
-        if ($(this).attr('class') === "btn upvote-btn" && arrayIndex < 4) {
+        if ($(this).attr('class') === "btn upvote-btn" && arrayIndex <= 3) {
             currentImportance.text(importanceArray[arrayIndex + 1]);
-            console.log(arrayIndex)
-        } else if ($(this).attr('class') === "btn downvote-btn" && arrayIndex > -1) {
+        } 
+        if ($(this).attr('class') === "btn downvote-btn" && arrayIndex >= 1) {
             currentImportance.text(importanceArray[arrayIndex - 1]);
         }
     var id = $(this).closest('.card-content').attr('id')
     var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
-    updateImportance = importanceArray[arrayIndex];
-    parsedFromLocalStorage.importance = updateImportance;
+    parsedFromLocalStorage.importance = currentImportance.text();
     var setObject = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
 }
 
@@ -116,19 +121,23 @@ function updateUserEdit() {
     sendStringifyStorage = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage))
 }
 
+$('.show-menu-btn').on('click', toggleMenuExpansion) 
 
-
-
-
-var showMenu = document.querySelector(".show-menu-btn");
-
-showMenu.addEventListener("click", function() {
-    toggleMenuExpansion();
-  });
-
-  function toggleMenuExpansion() {
+function toggleMenuExpansion() {
     var element = document.getElementById("butts");
     element.classList.toggle("show-expanded-menu");
-  }
+}
 
-  
+$('.show-completed').on('click', showMarkedRead)
+
+function showMarkedRead() {
+    for(var i = 0; i<localStorage.length; i++) {
+        var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i));
+        var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
+        if (parsedLocalStorageData.read === true) {
+            generateCard(parsedLocalStorageData);
+        }
+    }
+    $('.show-completed').prop('disabled', true);    
+}
+
