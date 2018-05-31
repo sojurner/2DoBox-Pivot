@@ -114,14 +114,22 @@ function listFilter(search) {
     $('p:contains(' + search + ')').closest('.card-content').show();  
 }
 
-$('.container-box').on('blur', ('.card-title, .card-body'), updateUserEdit);
+$('.container-box').on('blur', ('.card-title'), editTitle);
 
-function updateUserEdit() {
+function editTitle() {
     var id = $(this).closest('section').attr('id');
     var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
     parsedFromLocalStorage.title = $(this).text();
+    localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
+}
+
+$('.container-box').on('blur', ('.card-body'), editBody);
+
+function editBody() {
+    var id = $(this).closest('section').attr('id');
+    var parsedFromLocalStorage = JSON.parse(localStorage.getItem(id));
     parsedFromLocalStorage.body = $(this).text();
-    sendStringifyStorage = localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
+    localStorage.setItem(id, JSON.stringify(parsedFromLocalStorage));
 }
 
 $('.show-menu-btn').on('click', toggleMenuExpansion); 
