@@ -23,7 +23,6 @@ function generateCard(toDo) {
                 <h2 class="card-title" contenteditable="true"> ${toDo.title}</h2>
                 <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
                 <p class="card-body" contenteditable="true">${toDo.body}</p>
-                
                 <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
                 <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
                 <p class="todo-rating">Importance : <span class="importance-quality">${toDo.importance}</span></p>
@@ -59,7 +58,6 @@ function markedTask(object){
     cardfromStorage.read = !cardfromStorage.read;
     var sendToLocalStorage = localStorage.setItem(readMark, JSON.stringify(cardfromStorage));
 }
-
 
 $('.user-input').on('input', ('.title-input, .body-input'), enableDisableSaveButton);
 
@@ -104,8 +102,7 @@ function importanceQualityEdit () {
 $('.search-ideas').on('keyup', listFilter);
 
 function listFilter(search) {
-  var rawSearchInput = $('.search-ideas').val();
-  var search = rawSearchInput.trim();
+  var search = $('.search-ideas').val().trim();
   $.extend($.expr[":"], {
     'contains': function(elem, i, match, array) {
       return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || '').toLowerCase()) >= 0;
@@ -141,14 +138,46 @@ function toggleMenuExpansion() {
 }
 
 $('.show-completed').on('click', showMarkedRead);
+$('.critical-importance').on('click', showMarkedRead);
+$('.high-importance').on('click', showMarkedRead);
+$('.neautral-importance').on('click', showMarkedRead);
+$('.low-importance').on('click', showMarkedRead);
+$('.least-importance').on('click', showMarkedRead);
+$('.show-all').on('click', showMarkedRead);
+
 
 function showMarkedRead() {
+    $('.card-container').empty()
     for(var i = 0; i<localStorage.length; i++) {
         var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i));
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
-        if (parsedLocalStorageData.read === true) {
-            generateCard(parsedLocalStorageData);
+        if ($(this).hasClass('show-completed')) {
+            $('.show-completed').prop('disabled', true)    
+            if (parsedLocalStorageData.read === true) {
+                generateCard(parsedLocalStorageData)
+            } 
+        } else if($(this).hasClass('least-importance')) {
+            if(parsedLocalStorageData.importance === "None"){
+                generateCard(parsedLocalStorageData)
+            }
+        } else if($(this).hasClass('low-importance')) {
+            if(parsedLocalStorageData.importance === "Low"){
+                generateCard(parsedLocalStorageData)
+            }
+        }else if($(this).hasClass('neautral-importance')) {
+            if(parsedLocalStorageData.importance === "Normal"){
+                generateCard(parsedLocalStorageData)
+            } 
+        }else if($(this).hasClass('high-importance')) {
+            if(parsedLocalStorageData.importance === "High"){
+                generateCard(parsedLocalStorageData)       
+                }
+        }else if($(this).hasClass('critical-importance')) {
+            if(parsedLocalStorageData.importance === "Critical"){
+                generateCard(parsedLocalStorageData)       
+            }
+        }else {
+            location.reload()       
         }
     }
-    $('.show-completed').prop('disabled', true);    
 }
