@@ -1,35 +1,37 @@
 function IdeaCard(title, body, id, importance) {
     this.title = title;
     this.body = body;
-    this.id = Date.now();
+    this.id = id;
     this.importance = importance || 'Normal';
     this.read = false;
-}
-
-function generateCard(idea) {
-    var createCard =
-        `<section id="${idea.id}" class="card-content">
-                <h2 class="card-title" contenteditable="true"> ${idea.title}</h2>
-                <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
-                <p class="card-body" contenteditable="true">"${idea.body}"</p>
-                <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
-                <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
-                <p class="todo-rating">Importance: <span class="importance-quality">${idea.importance}</span></p>
-                <button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
-                <hr>
-            </section>`;
-    $('.card-container').prepend(createCard);
 }
 
 $('.save-btn').on('click', generateCardObject)
 
 function generateCardObject(event) {
     event.preventDefault();
-    var newCard = new IdeaCard($('.title-input').val(), $('.body-input').val(), idByDate, null, false);
     var idByDate = Date.now();
+    var newCard = new IdeaCard($('.title-input').val(), $('.body-input').val(), idByDate, null, false);
     localStorage.setItem(idByDate, JSON.stringify(newCard)); 
     clearInputFields()
     generateCard(newCard); 
+}
+
+function generateCard(toDo) {
+    var createCard =
+        `<section id="${toDo.id}" class="card-content fade-in">
+                <h2 class="card-title" contenteditable="true"> ${toDo.title}</h2>
+                <button class="btn delete-btn" aria-label="Button for deleting a to-do"></button>
+                <p class="card-body" contenteditable="true">${toDo.body}</p>
+                
+                <button class="btn upvote-btn" aria-label="Button for upvoting a to-do"></button>
+                <button class="btn downvote-btn" aria-label="Button for downvoting a to-do"></button> 
+                <p class="todo-rating">Importance : <span class="importance-quality">${toDo.importance}</span></p>
+                <button class="btn checked-btn" aria-label="The button for marking a todo as read"></button>
+                <i class="fab fa-readme"></i>
+                <hr>
+            </section>`;
+    $('.card-container').prepend(createCard);
 }
 
 function clearInputFields() {
@@ -51,10 +53,10 @@ $('.container-box').on('click', '.checked-btn', markedTask);
 
 function markedTask(object){
     object.read = !object.read; 
-    $(this).parent().toggleClass("marked-as-read");
+    $(this).siblings().toggleClass("show")
     var readMark = $(this).closest('.card-content').attr('id');
     var cardfromStorage = JSON.parse(localStorage.getItem(readMark));
-    cardfromStorage.read = !(cardfromStorage.read);
+    cardfromStorage.read = !cardfromStorage.read;
     var sendToLocalStorage = localStorage.setItem(readMark, JSON.stringify(cardfromStorage));
 }
 
@@ -62,7 +64,7 @@ function markedTask(object){
 $('.user-input').on('input', ('.title-input, .body-input'), enableDisableSaveButton);
 
 function enableDisableSaveButton() {
-      if ($('.title-input').val() === '' || $('.body-input').val === '') {
+      if ($('.title-input').val() === '' || $('.body-input').val() === '') {
         $('.save-btn').prop('disabled', true);
     } else {
         $('.save-btn').prop('disabled', false);

@@ -64,12 +64,17 @@ input,
 .save-btn {
   border: 0.06em solid #d1d2d3;
   box-sizing: border-box;
-  color: #c3c4c6;
+  color: black;
   font-size: 1.7rem;
   margin: 0.5rem;
   padding: 2px 5px;
   transition: all 0.2s linear;
   width: 100%;
+}
+
+input:hover {
+  border-color: #a0a0a0 #b9b9b9 #b9b9b9 #b9b9b9 !important;
+  box-shadow: 2px 2px #a0a0a0
 }
 
 .save-btn {
@@ -85,14 +90,19 @@ input,
 
 /*-----------------Expanded Menu------------------*/
 
+
 i {
   font-size: 2.5rem;
   color: #6d6e71;
   display: block;
 }
 
-i:hover {
+.fa-plus:hover {
   color: #045e55;
+}
+
+#bunch-of-btns {
+  margin-top: 1rem;
 }
 
 #rating-btn {
@@ -131,6 +141,20 @@ i:hover {
   width: 40rem;
 }
 
+.fade-in {
+  animation: fadeIn 2.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .card-content {
   box-sizing: border-box;
   margin: 0.5rem;
@@ -151,17 +175,17 @@ i:hover {
 }
 
 .marked-as-read {
-  background-color: #e5f3f2;
-  transition: all 0s linear;
-}
+  background-image: url(./images/checked-hover.png);
+  background-repeat: no-repeat;
 
-.toggle-show-hide {
-  display: none;
+  background-size: 1.6rem;
+  z-index: 1;
 }
 
 hr {
   margin-bottom: 0.5rem;
   width: 100%;
+  color: #d1d2d3;
 }
 
 /*------------------IDEA BUTTONS------------------*/
@@ -190,9 +214,19 @@ hr {
   float: right;
   position: relative;
 }
-
 .checked-btn:hover {
   background-image: url(./images/checked-hover.png);
+}
+
+.fa-readme{
+  position: relative;
+  float: right;
+  bottom: 2.7rem;
+  right: 1rem
+}
+
+.show {
+  color: #2C68B5;
 }
 
 .downvote-btn {
@@ -218,6 +252,10 @@ hr {
 .todo-rating {
   color: #939598;
   margin-left: 70px;
+}
+
+.importance-quality {
+  color: #00A79D;
 }
 
 /*------------------MEDIA QUERIES------------------*/

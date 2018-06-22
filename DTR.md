@@ -35,5 +35,19 @@ Nick: HTML and CSS. Communicative
 Paul: communicative, unique diff perspectives.
 
 ###Workload expectations
+Expect to Spend at least a couple hours a day tackling project.  Take advantage of 3 day weekend
 
-TBD.
+Workload Expectations (What features do we each want to work on?):
+
+Nick: CSS, HTML
+Paul: JS
+
+Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests):
+
+Maintain git workflow, keep eachother updated and provide constructive comments for all pull requests
+
+Expectations for giving and receiving feedback:
+Be receptive to feedback, work on weaknesses and build on strengths.
+
+Additional Notes:
+Both from military backgrounds.  See eye to eye on alot of issues.  Expect nothing but 100% effort from eachother.
