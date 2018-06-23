@@ -13,7 +13,7 @@ function generateCardObject(event) {
     var idByDate = Date.now();
     var newCard = new IdeaCard($('.title-input').val(), $('.body-input').val(), idByDate, null, false);
     localStorage.setItem(idByDate, JSON.stringify(newCard)); 
-    clearInputFields()
+    clearInputFields();
     generateCard(newCard); 
 }
 
@@ -42,17 +42,15 @@ function clearInputFields() {
 $('.container-box').on('click', '.delete-btn', removeCard);
 
 function removeCard() {
-  if ($(this).hasClass('delete-btn')) {
-    $(this).parents('.card-content').remove();
-  }
-  localStorage.removeItem($(this).parents('.card-content').attr('id'));
+    var cardToRemove = $(this).parents('.card-content');
+    cardToRemove.fadeOut(500);
+    localStorage.removeItem(cardToRemove.attr('id'));
 }
 
 $('.container-box').on('click', '.checked-btn', markedTask);
 
 function markedTask(object){
-    object.read = !object.read; 
-    $(this).siblings().toggleClass("show")
+    $(this).siblings().toggleClass('show');
     var readMark = $(this).closest('.card-content').attr('id');
     var cardfromStorage = JSON.parse(localStorage.getItem(readMark));
     cardfromStorage.read = !cardfromStorage.read;
@@ -61,12 +59,9 @@ function markedTask(object){
 
 $('.user-input').on('input', ('.title-input, .body-input'), enableDisableSaveButton);
 
-function enableDisableSaveButton() {
-      if ($('.title-input').val() === '' || $('.body-input').val() === '') {
-        $('.save-btn').prop('disabled', true);
-    } else {
-        $('.save-btn').prop('disabled', false);
-    }   
+function enableDisableSaveButton(event) {
+    event.preventDefault()
+    $('.title-input').val() === '' || $('.body-input').val() === '' ? $('.save-btn').prop('disabled', true) : $('.save-btn').prop('disabled', false);   
 }
 
 $(window).on('load', persisitLocalStorage);
@@ -75,9 +70,7 @@ function persisitLocalStorage() {
     for(var i = 0; i<localStorage.length; i++) {
         var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i));
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
-        if (parsedLocalStorageData.read === false) {
-            generateCard(parsedLocalStorageData); 
-        }
+        parsedLocalStorageData.read === false ? generateCard(parsedLocalStorageData) : false;
     }
 }
 
@@ -145,37 +138,24 @@ $('.low-importance').on('click', showMarkedRead);
 $('.least-importance').on('click', showMarkedRead);
 $('.show-all').on('click', showMarkedRead);
 
-
 function showMarkedRead() {
     $('.card-container').empty()
     for(var i = 0; i<localStorage.length; i++) {
         var retrieveFromLocalStorage = localStorage.getItem(localStorage.key(i));
         var parsedLocalStorageData = JSON.parse(retrieveFromLocalStorage);
-        if ($(this).hasClass('show-completed')) {
+        if($(this).hasClass('show-completed')) {
             $('.show-completed').prop('disabled', true)    
-            if (parsedLocalStorageData.read === true) {
-                generateCard(parsedLocalStorageData)
-            } 
-        } else if($(this).hasClass('least-importance')) {
-            if(parsedLocalStorageData.importance === "None"){
-                generateCard(parsedLocalStorageData)
-            }
-        } else if($(this).hasClass('low-importance')) {
-            if(parsedLocalStorageData.importance === "Low"){
-                generateCard(parsedLocalStorageData)
-            }
+            parsedLocalStorageData.read === true ? generateCard(parsedLocalStorageData) : false;
+        }else if($(this).hasClass('least-importance')) {
+            parsedLocalStorageData.importance === "None" ? generateCard(parsedLocalStorageData) : false;
+        }else if($(this).hasClass('low-importance')) {
+            parsedLocalStorageData.importance === "Low" ? generateCard(parsedLocalStorageData) : false;
         }else if($(this).hasClass('neautral-importance')) {
-            if(parsedLocalStorageData.importance === "Normal"){
-                generateCard(parsedLocalStorageData)
-            } 
+            parsedLocalStorageData.importance === "Normal" ? generateCard(parsedLocalStorageData) : false;
         }else if($(this).hasClass('high-importance')) {
-            if(parsedLocalStorageData.importance === "High"){
-                generateCard(parsedLocalStorageData)       
-                }
+            parsedLocalStorageData.importance === "High" ? generateCard(parsedLocalStorageData) : false;       
         }else if($(this).hasClass('critical-importance')) {
-            if(parsedLocalStorageData.importance === "Critical"){
-                generateCard(parsedLocalStorageData)       
-            }
+            parsedLocalStorageData.importance === "Critical" ? generateCard(parsedLocalStorageData) : false; 
         }else {
             location.reload()       
         }
