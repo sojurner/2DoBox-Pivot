@@ -129,8 +129,16 @@ i {
   text-decoration: none;
 }
 
-.show-expanded-menu {
-  display: none;
+.show {
+  opacity: 1;
+  transition: opacity 1s, visibility 1.3s ease-in;
+  visibility: visible;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 1s, visibility 1.3s ease-in;
+  visibility: hidden;
 }
 
 /*------------------IDEA CARD------------------*/
