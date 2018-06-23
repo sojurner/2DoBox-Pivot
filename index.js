@@ -127,7 +127,7 @@ function editBody() {
 $('.show-menu-btn').on('click', toggleMenuExpansion); 
 
 function toggleMenuExpansion() {
-    $('#bunch-of-btns').toggleClass('show-expanded-menu');
+    $('#bunch-of-btns').toggleClass('hide');
 }
 
 $('.show-completed').on('click', showMarkedRead);
