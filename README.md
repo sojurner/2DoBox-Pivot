@@ -1,6 +1,6 @@
-#### 2DOBOXPIVOT
+## 2DoBox
 
-This is a refactored version of the previous project, IdeaBox, turning it into a Todo-list app.
+A refactored version of IdeaBox, turning it into a Todo-list app.
 Now includes:
 * Functionality of marking todo's as completed
 * Increased importance ranging from None to Critical
